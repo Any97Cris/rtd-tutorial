@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  docs:
+    build: .
+    volumes:
+      - ./docs:/docs
+    working_dir: /docs/source
+    command: make html
+    environment:
+      - PIP_REQUIREMENTS=/docs/source/requirements.txt
+  web:
+    image: nginx:alpine
+    depends_on:
+      - docs
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docs/source/_build/html:/usr/share/nginx/html:ro

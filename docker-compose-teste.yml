@@ -1,0 +1,16 @@
+services:
+  docs:
+    image: readthedocs/build
+    volumes:
+      - ./docs:/home/docs/checkouts/readthedocs.org/user_builds/project/checkouts/latest
+    working_dir: /home/docs/checkouts/readthedocs.org/user_builds/project/checkouts/latest
+    command: sphinx-build -b html . _build/html
+
+  web:
+    image: python:3.10-slim
+    working_dir: /docs
+    volumes:
+      - ./docs/_build/html:/docs
+    command: python -m http.server 8000
+    ports:
+      - "8000:8000"
