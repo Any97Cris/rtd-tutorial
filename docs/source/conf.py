@@ -33,3 +33,12 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+extensions += [
+    'sphinxcontrib.openapi',
+    'sphinxcontrib.redoc'
+]
+
+def setup(app):
+    app.add_js_file('swagger-ui/swagger-ui-bundle.js')
+    app.add_js_file('swagger-ui/swagger-ui-standalone-preset.js')
