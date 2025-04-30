@@ -20,6 +20,11 @@ RUN pip install --upgrade pip \
 # Faz o build da documentação com tema readthedocs
 RUN sphinx-build -b html docs/source docs/_build/html
 
+# Copia a interface do Swagger UI para o builder
+# (vai ser repassada depois para a imagem final)
+RUN mkdir -p /app/docs/_build/html/swagger
+COPY docs/swagger-ui /app/docs/_build/html/swagger
+
 # Nginx para servir os arquivos HTML
 FROM nginx:alpine
 
